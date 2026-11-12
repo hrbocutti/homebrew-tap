@@ -5,8 +5,8 @@
 class SharedPeripherals < Formula
   desc "Compartilha teclado e mouse entre dois Macs via UDP de baixa latência"
   homepage "https://github.com/hrbocutti/homebrew-tap"
-  url "https://github.com/hrbocutti/homebrew-tap/releases/download/shared-peripherals-v0.3.0/shared-peripherals-0.3.0-macos-universal.tgz"
-  sha256 "99f6264dfc8db4eca3825e713b58426928bfd5f3000171d665be06f58f9c461b"
+  url "https://github.com/hrbocutti/homebrew-tap/releases/download/shared-peripherals-v0.3.1/shared-peripherals-0.3.1-macos-universal.tgz"
+  sha256 "06681e49bfc762cb6f0133eac4a9f32341516422ecdb60236ef12df6520989c3"
 
   depends_on :macos
 
