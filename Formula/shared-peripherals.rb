@@ -5,8 +5,8 @@
 class SharedPeripherals < Formula
   desc "Compartilha teclado e mouse entre dois Macs via UDP de baixa latência"
   homepage "https://github.com/hrbocutti/homebrew-tap"
-  url "https://github.com/hrbocutti/homebrew-tap/releases/download/shared-peripherals-v0.2.0/shared-peripherals-0.2.0-macos-universal.tgz"
-  sha256 "b54db775de8847d26530563ebf6fa36562b9fbeb90c2821d30620d52487be2e7"
+  url "https://github.com/hrbocutti/homebrew-tap/releases/download/shared-peripherals-v0.3.0/shared-peripherals-0.3.0-macos-universal.tgz"
+  sha256 "99f6264dfc8db4eca3825e713b58426928bfd5f3000171d665be06f58f9c461b"
 
   depends_on :macos
 
@@ -16,8 +16,10 @@ class SharedPeripherals < Formula
   end
 
   service do
-    run [opt_bin/"sp", "run"]
-    keep_alive true
+    run [opt_bin/"sp", "run", "--foreground"]
+    # reinicia só se cair; "Sair" no menu encerra de verdade
+    keep_alive crashed: true
+    environment_variables SP_LOG_PATH: "#{var}/log/shared-peripherals.log"
     process_type :interactive
     log_path var/"log/shared-peripherals.log"
     error_log_path var/"log/shared-peripherals.log"
@@ -30,8 +32,10 @@ class SharedPeripherals < Formula
            cp #{opt_pkgshare}/config.example.toml ~/.config/shared_peripherals/config.toml
            # edite: peer = "<outro-mac>.local"
 
-      2. Teste a rede:   sp echo  (no outro Mac)   |   sp bench --peer <outro>.local
-      3. Rode:           sp run                    (ou: brew services start shared-peripherals)
+      2. Rode nos dois Macs:  sp run   (vai para segundo plano, com ícone na barra de menus)
+         ou como serviço:     brew services start shared-peripherals
+         Pelo ícone você vê os IPs, escolhe o outro Mac e liga/desliga a borda.
+         Parar: sp stop  (ou "Sair" no menu)
 
       Na primeira execução conceda Acessibilidade e Monitoramento de Entrada
       (Ajustes do Sistema → Privacidade e Segurança) ao Terminal, ou a
